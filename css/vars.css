@@ -1,0 +1,13 @@
+:root {
+  /* Colors */
+  --primary-color: #0c98b9;
+  --secondary-color: #33be6d;
+
+  /* Basic font-size */
+  --fs: 16px;
+
+  /* Breakpoints */
+  --sm: 680px;
+  --med: 940px;
+  --lg: 1280px;
+}
