@@ -11,7 +11,6 @@
 
   <!-- Font Awesome -->
   <link href="lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" type="text/css">
-  <link href="lib/font-awesome/css/brands.min.css" rel="stylesheet" type="text/css">
   <link href="lib/font-awesome/css/solid.min.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -50,24 +49,24 @@
         <div class="input-group">
           <input type="text" class="editor-textbox w-100" oninput="onTextChange(this.value)">
           <div class="flex align-center justify-content-center text-actions">
-            <button type="button" onclick="onFontIncrease()"><i class="fa-solid fa-arrow-up"></i></button>
-            <button type="button" onclick="onFontDecrease()"><i class="fa-solid fa-arrow-down"></i></button>
+            <button type="button" onclick="onNextText()"><i class="fa-solid fa-text-height"></i></button>
             <button type="button" onclick="onAddText()"><i class="fa-solid fa-plus"></i></button>
             <button type="button" onclick="onRemoveText()"><i class="fa-solid fa-trash-can"></i></button>
           </div>
         </div>
         <hr>
         <div class="input-group meme-controls">
-          <button type="button"><i class="fa-solid fa-font"></i><sup>+</sup></button>
-          <button type="button"><i class="fa-solid fa-font"></i><sup>-</sup></button>
-          <button type="button"><i class="fa-solid fa-solid fa-align-left"></i></button>
-          <button type="button"><i class="fa-solid fa-align-center"></i></button>
-          <button type="button"><i class="fa-solid fa-solid fa-align-right"></i></button>
-          <select>
-            <option value="impact">Impact</option>
+          <button type="button" onclick="onFontSizeChange(true)"><i class="fa-solid fa-font"></i><sup>+</sup></button>
+          <button type="button" onclick="onFontSizeChange(false)"><i class="fa-solid fa-font"></i><sup>-</sup></button>
+          <button type="button" onclick="onAlignText('left')"><i class="fa-solid fa-solid fa-align-left"></i></button>
+          <button type="button" onclick="onAlignText('center')"><i class="fa-solid fa-align-center"></i></button>
+          <button type="button" onclick="onAlignText('right')"><i class="fa-solid fa-solid fa-align-right"></i></button>
+          <select onchange="onFontFamilyChange(this.value)">
+            <option value="Impact">Impact</option>
           </select>
-          <button type="button"><i class="fa-solid fa-s"></i></button>
-          <button type="button"><i class="fa-solid fa-palette"></i></button>
+          <button type="button" onclick="onColorPick()"><i class="fa-solid fa-s"></i></button>
+          <button type="button" onclick="onColorPick()"><i class="fa-solid fa-palette"></i></button>
+          <input type="color" onchange="onColorChange(event)" id="color-picker" hidden>
         </div>
         <hr>
         <div class="meme-faces"></div>

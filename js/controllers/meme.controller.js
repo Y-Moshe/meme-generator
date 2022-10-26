@@ -154,3 +154,26 @@ function getCenterPos() {
     y: gCanvas.height / 2
   }
 }
+
+// CONTROLS EVENTS
+
+function onFontSizeChange(isIncrease) {
+
+}
+
+// left, center, right
+function onAlignText(align) {
+
+}
+
+function onFontFamilyChange(fontFamily) {
+
+}
+
+function onColorPick() {
+
+}
+
+function onColorChange(event) {
+  console.log('color event', event)
+}
