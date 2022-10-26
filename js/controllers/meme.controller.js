@@ -1,6 +1,7 @@
 let gCanvas = document.createElement('canvas')
 let gCtx = gCanvas.getContext('2d')
 let gCanvasBgImg
+let gLastPos
 
 function initCanvas() {
   gCanvas = document.querySelector('.meme-editor')
@@ -48,26 +49,42 @@ function renderCanvas() {
     gCtx.strokeStyle = line.stroke
     gCtx.strokeText(line.txt, line.pos.x, line.pos.y + line.fontSize)
 
-    let txtWidth = gCtx.measureText(line.txt).width
-    if (idx === selectedLineIdx) txtWidth = gCanvas.width
-    gCtx.strokeRect(line.pos.x, line.pos.y, txtWidth, line.size)
+    let txtWidth = line.txtWidth
+    // if (idx === selectedLineIdx) txtWidth = gCanvas.width
+    gCtx.strokeRect(line.pos.x, line.pos.y, txtWidth, line.fontSize)
   })
 }
 
 function onTextChange(txt) {
-  setLineTxt(txt)
+  setLineTxt(txt, gCtx.measureText(txt).width)
   renderCanvas()
 }
 
 function onMouseDown(event) {
+  const { x, y } = getEventPos(event)
 
+  const lineIdx = getLineIdxByCoords(x, y)
+  if (lineIdx >= 0) {
+    setIsDrag(true)
+    setSelectedLineIdx(lineIdx)
+  }
+
+  gLastPos = { x, y }
 }
 
 function onMouseMove(event) {
+  const { x, y } = getEventPos(event)
 
+  if (getIsDrag()) {
+    const dx = x - gLastPos.x
+    const dy = y - gLastPos.y
+    moveTextLine(dx, dy)
+    gLastPos = { x, y }
+    renderCanvas()
+  }
 }
 
 function onMouseUp(event) {
-
+  setIsDrag(false)
 }
 

@@ -92,7 +92,6 @@ function isRectClicked(currX, currY, rectX, rectY, width, height) {
 
 //Check if the click is inside the circle 
 function isCircleClicked(currX, currY, circleX, circleY, radius) {
-  const { pos } = gCircle
   // Calc the distance between two dots
   const distance = Math.sqrt((circleX - currX) ** 2 + (circleY - currY) ** 2)
   //If its smaller then the radius of the circle we are inside

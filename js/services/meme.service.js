@@ -5,7 +5,8 @@ let gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 let gImgs = [{ id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'] }];
 let gMeme = {
   selectedImgId: 5,
-  selectedLineIdx: -1,
+  selectedLineIdx: 0,
+  isDrag: false,
   lines: [
     {
       txt: 'I sometimes eat Falafel',
@@ -14,13 +15,26 @@ let gMeme = {
       textAlign: 'left',
       stroke: 'black',
       color: 'red',
-      pos: { x: 0, y: 0 }
+      pos: { x: 0, y: 0 },
+      txtWidth: 300
     }
   ]
 }
 
+function setIsDrag(drag) {
+  gMeme.isDrag = drag
+}
+
+function getIsDrag() {
+  return gMeme.isDrag
+}
+
 function getImgs() {
   return gImgs
+}
+
+function getImgById(id) {
+  return gImgs.find(img => img.id === id)
 }
 
 function getMeme() {
@@ -35,29 +49,32 @@ function setSelectedLineIdx(idx) {
   gMeme.selectedLineIdx = idx
 }
 
-function setLineTxt(txt) {
+function setLineTxt(txt, txtWidth) {
   const idx = gMeme.selectedLineIdx
   gMeme.lines[idx].txt = txt
+  gMeme.lines[idx].txtWidth = txtWidth
 }
 
-function getImgById(id) {
-  return gImgs.find(img => img.id === id)
+function getLineIdxByCoords(x, y) {
+  return gMeme.lines.findIndex(({ txtWidth, fontSize: txtHeight, pos }) =>
+    isRectClicked(x, y, pos.x, pos.y, txtWidth, txtHeight))
 }
 
-function addLine(txt, fontSize, fontFamily, textAlign, stroke, color, pos) {
+function addTextLine(txt, fontSize, fontFamily,
+    textAlign, stroke, color, pos) {
   gMeme.lines.push({
     txt, fontSize, fontFamily,
     textAlign, stroke, color, pos
   })
 }
 
-function moveLine(dx, dy) {
+function moveTextLine(dx, dy) {
   const idx = gMeme.selectedLineIdx
   gMeme.lines[idx].pos.x += dx
   gMeme.lines[idx].pos.y += dy
 }
 
-function removeLine() {
+function removeTextLine() {
   const idx = gMeme.selectedLineIdx
   setSelectedLineIdx(-1)
   return gMeme.lines.splice(idx, 1)[0]
