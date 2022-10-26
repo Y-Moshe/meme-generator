@@ -29,7 +29,7 @@
     </nav>
   </header>
 
-  <main>
+  <main class="main-layout">
     <!-- Gallery -->
     <section class="gallery-container">
       <div class="filters flex">
@@ -48,14 +48,28 @@
 
       <aside class="meme-actions">
         <div class="input-group">
-          <input type="text">
-          <div class="flex align-center">
-            <button type="button"><i class="fa-solid fa-diagram-next"></i></button>
-            <button type="button"><i class="fa-solid fa-plus"></i></button>
-            <button type="button"><i class="fa-solid fa-trash-can"></i></button>
+          <input type="text" class="editor-textbox w-100" oninput="onTextChange(this.value)">
+          <div class="flex align-center justify-content-center text-actions">
+            <button type="button" onclick="onFontIncrease()"><i class="fa-solid fa-arrow-up"></i></button>
+            <button type="button" onclick="onFontDecrease()"><i class="fa-solid fa-arrow-down"></i></button>
+            <button type="button" onclick="onAddText()"><i class="fa-solid fa-plus"></i></button>
+            <button type="button" onclick="onRemoveText()"><i class="fa-solid fa-trash-can"></i></button>
           </div>
         </div>
-        <div class="input-group meme-controls"></div>
+        <hr>
+        <div class="input-group meme-controls">
+          <button type="button"><i class="fa-solid fa-font"></i><sup>+</sup></button>
+          <button type="button"><i class="fa-solid fa-font"></i><sup>-</sup></button>
+          <button type="button"><i class="fa-solid fa-solid fa-align-left"></i></button>
+          <button type="button"><i class="fa-solid fa-align-center"></i></button>
+          <button type="button"><i class="fa-solid fa-solid fa-align-right"></i></button>
+          <select>
+            <option value="impact">Impact</option>
+          </select>
+          <button type="button"><i class="fa-solid fa-s"></i></button>
+          <button type="button"><i class="fa-solid fa-palette"></i></button>
+        </div>
+        <hr>
         <div class="meme-faces"></div>
         <div class="">
           <button type="button"><i class="fa-solid fa-share-nodes"></i> Share</button>
@@ -74,9 +88,6 @@
   <!-- Controllers -->
   <script src="js/controllers/meme.controller.js"></script>
   <script src="js/controllers/gallery.controller.js"></script>
-
-  <!-- Main -->
-  <script src="js/main.js"></script>
 </body>
 
 </html>
