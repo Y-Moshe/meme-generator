@@ -1,3 +1,16 @@
+function onInit() {
+  initImgs()
+  renderGallery()
+  initCanvas()
+}
+
+function initImgs() {
+  gImgs = []
+  for (let i = 1; i <= 18; i++) {
+    gImgs.push(createMemeImg(`img/${i}.jpg`, ['test', 'gol']))
+  }
+}
+
 function renderGallery() {
   const gallery = getImgs().map(renderGalleryItem)
 
@@ -17,6 +30,10 @@ function renderGalleryItem({ id, url, keywords }) {
 }
 
 function onImgSelect(id) {
+  // Hide Gallery
+  document.querySelector('.gallery-container')
+    .setAttribute('hidden', true)
+
   setSelectedImgId(id)
   renderMeme()
 }
