@@ -49,6 +49,17 @@ function setSelectedLineIdx(idx) {
   gMeme.selectedLineIdx = idx
 }
 
+function selectNextLine() {
+  gMeme.selectedLineIdx += 1
+  if (gMeme.selectedLineIdx === gMeme.lines.length)
+    gMeme.selectedLineIdx = 0
+}
+
+function getSelectedLine() {
+  const { selectedLineIdx, lines } = gMeme
+  return lines[selectedLineIdx]
+}
+
 function setLineTxt(txt, txtWidth) {
   const idx = gMeme.selectedLineIdx
   gMeme.lines[idx].txt = txt
@@ -60,12 +71,20 @@ function getLineIdxByCoords(x, y) {
     isRectClicked(x, y, pos.x, pos.y, txtWidth, txtHeight))
 }
 
-function addTextLine(txt, fontSize, fontFamily,
+function isTextLinePos(x, y) {
+  return gMeme.lines.some(({ txtWidth, fontSize: txtHeight, pos }) =>
+    isRectClicked(x, y, pos.x, pos.y, txtWidth, txtHeight))
+}
+
+function addTextLine(txt, txtWidth, fontSize, fontFamily,
     textAlign, stroke, color, pos) {
-  gMeme.lines.push({
-    txt, fontSize, fontFamily,
-    textAlign, stroke, color, pos
+
+  const newIdx = gMeme.lines.push({
+    txt, txtWidth, fontSize,
+    fontFamily, textAlign, stroke,
+    color, pos,
   })
+  setSelectedLineIdx(newIdx - 1)
 }
 
 function moveTextLine(dx, dy) {
