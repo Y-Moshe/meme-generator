@@ -15,15 +15,68 @@
   <link href="lib/font-awesome/css/solid.min.css" rel="stylesheet" type="text/css">
 </head>
 
-<body onload="onInit()">
-  <p>Hello World</p>
+<body class="main-layout" onload="onInit()">
+
+  <!-- Header & Nav -->
+  <header class="main-header full">
+    <nav class="main-layout main-nav">
+      <img src="favicon.png" alt="logo" class="logo-img">
+      <ul class="clean-list flex">
+        <a href="#" class="link active-link"><li>Gallery</li></a>
+        <a href="#" class="link"><li>My Memes</li></a>
+        <a href="#" class="link"><li>About</li></a>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Gallery -->
+    <section class="gallery-container" hidden>
+      <div class="filters flex">
+        <input type="text">
+        <div>'Funny', 'Animal', 'Men', 'Women', 'Comic', 'Smile'</div>
+        <button>More</button>
+      </div>
+      <div class="gallery"></div>
+    </section>
+
+    <!-- Meme Generator & Controls -->
+    <section class="meme-generator">
+      <div class="meme-editor-container">
+        <canvas class="meme-editor" width="200" height="200"></canvas>
+      </div>
+
+      <aside class="meme-actions">
+        <div class="input-group">
+          <input type="text">
+          <div class="flex align-center">
+            <button type="button"><i class="fa-solid fa-arrow-up-arrow-down"></i></button>
+            <button type="button"><i class="fa-solid fa-plus"></i></button>
+            <button type="button"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+        <div class="input-group meme-controls"></div>
+        <div class="meme-faces"></div>
+        <div class="">
+          <button type="button"><i class="fa-solid fa-share-nodes"></i> Share</button>
+          <button type="button"><i class="fa-solid fa-download"></i> Download</button>
+        </div>
+      </aside>
+    </section>
+
+  </main>
 
   <!-- Services -->
   <script src="js/services/utils.service.js"></script>
   <script src="js/services/storage.service.js"></script>
+  <script src="js/services/meme.service.js"></script>
 
   <!-- Controllers -->
-  <script src="js/controllers/index.controller.js"></script>
+  <script src="js/controllers/meme.controller.js"></script>
+  <script src="js/controllers/gallery.controller.js"></script>
+
+  <!-- Main -->
+  <script src="js/main.js"></script>
 </body>
 
 </html>
