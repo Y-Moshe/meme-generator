@@ -24,6 +24,14 @@ function getMeme() {
   return gMeme
 }
 
+function setSelectedImgId(id) {
+  gMeme.selectedImgId = id
+}
+
+function setSelectedLineIdx(idx) {
+  gMeme.selectedLineIdx = idx
+}
+
 function getImgById(id) {
   return gImgs.find(img => img.id === id)
 }

@@ -17,5 +17,6 @@ function renderGalleryItem({ id, url, keywords }) {
 }
 
 function onImgSelect(id) {
-  console.log('onImgSelect');
+  setSelectedImgId(id)
+  renderMeme()
 }
