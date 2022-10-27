@@ -41,13 +41,13 @@ function renderCanvas() {
   clearCanvas()
   gCtx.drawImage(gCanvasBgImg, 0, 0, gCanvas.width, gCanvas.height)
 
-  const { selectedLineIdx, lines } = getMeme()
+  const { lines } = getMeme()
   lines.forEach((line, idx) => {
     const { txt, txtWidth, fontSize, fontFamily,
       color, stroke, pos, textAlign } = line
     
     gCtx.font = `${fontSize}px ${fontFamily} ${color}`
-    gCtx.textAlign = textAlign
+    setTextAlignment(textAlign, lines[idx])
     
     const txtStartHeight = pos.y + fontSize
     gCtx.strokeStyle = stroke
@@ -55,7 +55,6 @@ function renderCanvas() {
     gCtx.fillStyle = color
     gCtx.fillText(txt, pos.x, txtStartHeight)
 
-    // if (idx === selectedLineIdx) txtWidth = gCanvas.width
     gCtx.rect(pos.x, pos.y, txtWidth, fontSize)
   })
 }
@@ -71,6 +70,7 @@ function onMouseDown(event) {
     setSelectedLineIdx(lineIdx)
     setUserCursor('grabbing')
     setLineMark(true, true)
+    setTextAlignment('dragged')
   }
 
   gLastPos = { x, y }
@@ -118,6 +118,7 @@ function setUserCursor(cursor) {
 
 function onTextChange(txt) {
   setLineTxt(txt, gCtx.measureText(txt).width)
+  setTextAlignment(getSelectedLine().textAlign)
   renderCanvas()
 }
 
@@ -125,7 +126,7 @@ function onAddText() {
   const txt = 'New Text'
   const txtWidth = gCtx.measureText(txt).width
   addTextLine(txt, txtWidth, 16, 'Impact',
-    'left', 'black', 'black', getCenterPos())
+    'center', 'black', 'black', getCenterPos(txtWidth))
   renderCanvas()
 }
 
@@ -148,9 +149,9 @@ function setInputFocus() {
   document.querySelector('.editor-textbox').focus()
 }
 
-function getCenterPos() {
+function getCenterPos(lineWidth) {
   return {
-    x: gCanvas.width / 2,
+    x: (gCanvas.width / 2) - (lineWidth / 2),
     y: gCanvas.height / 2
   }
 }
@@ -158,12 +159,33 @@ function getCenterPos() {
 // CONTROLS EVENTS
 
 function onFontSizeChange(isIncrease) {
-
+  const line = getSelectedLine()
+  isIncrease ? line.fontSize++ : line.fontSize--
+  onTextChange(line.txt)
 }
 
 // left, center, right
 function onAlignText(align) {
+  setTextAlignment(align)
+  renderCanvas()
+}
 
+function setTextAlignment(align, line = null) {
+  if (getIsDrag() && align !== 'dragged') return
+  if (!line) line = getSelectedLine()
+  let x = line.pos.x
+  switch (align) {
+    case 'left':
+      x = 0
+      break;
+    case 'center':
+      x = getCenterPos(line.txtWidth).x
+      break;
+    case 'right':
+      x = gCanvas.width - line.txtWidth
+      break;
+  }
+  setLineAlignment(line, x, align)
 }
 
 function onFontFamilyChange(fontFamily) {

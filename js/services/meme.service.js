@@ -66,6 +66,11 @@ function setLineTxt(txt, txtWidth) {
   gMeme.lines[idx].txtWidth = txtWidth
 }
 
+function setLineAlignment(line, x, align) {
+  line.pos.x = x
+  line.textAlign = align
+}
+
 function getLineIdxByCoords(x, y) {
   return gMeme.lines.findIndex(({ txtWidth, fontSize: txtHeight, pos }) =>
     isRectClicked(x, y, pos.x, pos.y, txtWidth, txtHeight))
