@@ -72,7 +72,7 @@ body {
   margin: 40px;
 }
 
-.gallery-item {
+.gallery .gallery-item {
   position: relative;
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
@@ -80,17 +80,17 @@ body {
   transition: .3s;
 }
 
-.gallery-item:hover {
+.gallery .gallery-item:hover {
   box-shadow: none;
 }
 
-.gallery-item-img {
+.gallery .gallery-item .gallery-item-img {
   border-radius: 5px;
   width: 200px;
   height: 100%;
 }
 
-.gallery-item-keywords {
+.gallery .gallery-item .gallery-item-keywords {
   z-index: 10;
   position: absolute;
   bottom: 5px;
@@ -99,7 +99,7 @@ body {
   display: flex;
 }
 
-.gallery-badge {
+.gallery .gallery-item .gallery-item-keywords .gallery-badge {
   display: inline-block;
   margin: 0 5px;
   padding: 0 6px;
@@ -117,32 +117,54 @@ body {
   margin-top: 40px;
 }
 
-.meme-editor-container {
+.meme-generator .meme-editor-container {
   width: 100%;
   text-align: center;
 }
 
-.meme-editor {
+.meme-generator .meme-editor-container .meme-editor {
   border-radius: 15px;
   outline: 3px solid rgba(255, 255, 255, 0.4);
 }
 
+/* TEXT-ACTIONS */
+
 .meme-actions {
+  display: flex;
+  flex-direction: column;
   border-radius: 30px;
   background: rgba(255, 255, 255, 0.11);
   padding: 25px 40px;
 }
 
-.text-actions button {
-  padding: 15px;
-  /* color: white; */
+.meme-actions .text-actions {
+  margin: 20px 30px;
+  gap: 20px;
 }
 
-.text-actions button:focus {
-  outline: none;
+.meme-actions .text-actions button {
+  text-shadow: 1px 3px 0 rgba(1, 93, 51, 0.61);
+  color: #ebeef3;
+  font-size: 1.85em;
+  font-weight: 400;
 }
 
-.editor-textbox {
+.meme-actions .text-actions .switch-text-btn {
+  box-shadow: 1px 5px 0 #048b97, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+  background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
+}
+
+.meme-actions .text-actions .add-text-btn {
+  box-shadow: 1px 5px 0 #015d33, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+  background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
+}
+
+.meme-actions .text-actions .remove-txt-btn {
+  box-shadow: 1px 5px 0 #8c0606, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+  background-image: linear-gradient(-38deg, #cf1d37 0%, #cf1d37 1%, #f05036 100%);
+}
+
+.meme-actions .input-group .editor-textbox {
   color: #3d3d3d;
   font-size: 1.562em;
   font-weight: 500;
@@ -152,7 +174,7 @@ body {
   background-color: #ebeef3;
 }
 
-.editor-textbox:focus {
+.meme-actions .input-group .editor-textbox:focus {
   outline: none;
 }
 
@@ -170,11 +192,11 @@ body {
 }
 
 .meme-controls button {
-  padding: 13px;
   box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
-  border-radius: 10px;
   background-color: #ffffff;
-  cursor: pointer;
+  font-size: inherit;
+  max-width: 55px;
+  margin: auto;
 }
 
 .meme-controls > button {
@@ -184,6 +206,16 @@ body {
 .meme-controls .font-select {
   grid-row: 2;
   grid-column: 1 / 4;
+
+  box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+  border-radius: 10px;
+  font-size: inherit;
+  background-color: #ffffff;
+  padding-inline: 35px 20px;
+}
+
+.meme-controls .font-select:focus {
+  outline: none;
 }
 
 .meme-controls .colors-btns {
@@ -202,4 +234,27 @@ body {
   top: 0;
   left: 0;
   opacity: 0;
+}
+
+/* MEME STICKERS */
+
+.meme-actions .meme-faces {
+  flex-grow: 1;
+}
+
+.meme-actions .meme-share a {
+  padding: 15px 35px;
+  font-size: 1.25rem;
+  color: white;
+  border-radius: 15px;
+}
+
+.meme-actions .meme-share .share-link {
+  box-shadow: 1px 6px 0 #165c9c, inset 0 5px 0 rgba(255, 255, 255, 0.5);
+  background-color: #1e7cd3;
+}
+
+.meme-actions .meme-share .download-link {
+  box-shadow: 1px 6px 0 #632687, inset 0 5px 0 rgba(255, 255, 255, 0.5);
+  background-color: #8f44bb;
 }

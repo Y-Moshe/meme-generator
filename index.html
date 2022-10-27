@@ -49,15 +49,15 @@
         <div class="input-group">
           <input type="text" class="editor-textbox w-100" oninput="onTextChange(this.value)">
           <div class="flex align-center justify-content-center text-actions">
-            <button type="button" onclick="onNextText()"><i class="fa-solid fa-text-height"></i></button>
-            <button type="button" onclick="onAddText()"><i class="fa-solid fa-plus"></i></button>
-            <button type="button" onclick="onRemoveText()"><i class="fa-solid fa-trash-can"></i></button>
+            <button type="button" class="switch-text-btn" onclick="onNextText()"><i class="fa-solid fa-text-height"></i></button>
+            <button type="button" class="add-text-btn" onclick="onAddText()"><i class="fa-solid fa-plus"></i></button>
+            <button type="button" class="remove-txt-btn" onclick="onRemoveText()"><i class="fa-solid fa-trash-can"></i></button>
           </div>
         </div>
-        <hr>
+
         <div class="input-group meme-controls">
-          <button type="button" onclick="onFontSizeChange(true)"><i class="fa-solid fa-font"></i><sup>+</sup></button>
-          <button type="button" onclick="onFontSizeChange(false)"><i class="fa-solid fa-font"></i><sup>-</sup></button>
+          <button type="button" onclick="onFontSizeChange(true)"><i class="fa-solid fa-font"></i></button>
+          <button type="button" onclick="onFontSizeChange(false)"><i class="fa-solid fa-font"></i></button>
           <button type="button" onclick="onAlignText('left')"><i class="fa-solid fa-solid fa-align-left"></i></button>
           <button type="button" onclick="onAlignText('center')"><i class="fa-solid fa-align-center"></i></button>
           <button type="button" onclick="onAlignText('right')"><i class="fa-solid fa-solid fa-align-right"></i></button>
@@ -69,13 +69,12 @@
             <button type="button" onclick="onColorPick('color')"><i class="fa-solid fa-palette"></i></button>
             <input type="color" onchange="onColorChange(this, this.value)" class="color-picker">
           </div>
-
         </div>
-        <hr>
+
         <div class="meme-faces"></div>
-        <div class="">
-          <button type="button"><i class="fa-solid fa-share-nodes"></i> Share</button>
-          <button type="button"><i class="fa-solid fa-download"></i> Download</button>
+        <div class="meme-share flex space-between">
+          <a class="share-link" href="#"><i class="fa-solid fa-share-nodes"></i> Share</a>
+          <a class="download-link" href="#"><i class="fa-solid fa-download"></i> Download</a>
         </div>
       </aside>
     </section>
