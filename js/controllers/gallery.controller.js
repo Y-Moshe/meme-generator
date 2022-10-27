@@ -46,6 +46,7 @@ function renderGallery() {
 function renderGalleryItem({ id, url }) {
   return `
     <div class="gallery-item" onclick="onImgSelect('${id}')">
+      <div class="gallery-item-overlay"></div>
       <img src="${url}" alt="${id} img" class="gallery-item-img" />
     </div>
   `
@@ -62,6 +63,7 @@ function renderSavedGallery() {
 function renderSavedGalleryItem(memeId, { id, url }) {
   return `
     <div class="gallery-item" onclick="onImgSelect('${id}', '${memeId}')">
+      <div class="gallery-item-overlay"></div>
       <img src="${url}" alt="${id} img" class="gallery-item-img" />
     </div>
   `

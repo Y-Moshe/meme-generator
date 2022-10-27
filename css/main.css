@@ -128,6 +128,7 @@ body {
 }
 
 .gallery .gallery-item {
+  position: relative;
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   cursor: pointer;
@@ -136,6 +137,21 @@ body {
 
 .gallery .gallery-item:hover {
   box-shadow: none;
+}
+
+.gallery .gallery-item-overlay {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: height .3s;
+}
+
+.gallery .gallery-item:hover .gallery-item-overlay {
+  height: 100%;
 }
 
 .gallery .gallery-item .gallery-item-img {
