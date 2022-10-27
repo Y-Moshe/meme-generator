@@ -46,7 +46,7 @@ function renderCanvas() {
     const { txt, txtWidth, fontSize, fontFamily,
       color, stroke, pos, textAlign } = line
     
-    gCtx.font = `${fontSize}px ${fontFamily} ${color}`
+    gCtx.font = `${fontSize}px ${fontFamily}`
     setTextAlignment(textAlign, lines[idx])
     
     const txtStartHeight = pos.y + fontSize
@@ -118,7 +118,6 @@ function setUserCursor(cursor) {
 
 function onTextChange(txt) {
   setLineTxt(txt, gCtx.measureText(txt).width)
-  setTextAlignment(getSelectedLine().textAlign)
   renderCanvas()
 }
 
@@ -161,6 +160,7 @@ function getCenterPos(lineWidth) {
 function onFontSizeChange(isIncrease) {
   const line = getSelectedLine()
   isIncrease ? line.fontSize++ : line.fontSize--
+  renderCanvas()
   onTextChange(line.txt)
 }
 
@@ -189,13 +189,23 @@ function setTextAlignment(align, line = null) {
 }
 
 function onFontFamilyChange(fontFamily) {
-
+  const line = getSelectedLine()
+  line.fontFamily = fontFamily
+  renderCanvas()
+  onTextChange(line.txt)
 }
 
-function onColorPick() {
-
+function onColorPick(type) {
+  const colorPicker = document.querySelector('.color-picker')
+  colorPicker.click()
+  colorPicker.dataset.type = type
 }
 
-function onColorChange(event) {
-  console.log('color event', event)
+function onColorChange(elColor, color) {
+  const type = elColor.dataset.type
+
+  const line = getSelectedLine()
+  line[type] = color
+  renderCanvas()
+  onTextChange(line.txt)
 }

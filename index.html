@@ -61,12 +61,15 @@
           <button type="button" onclick="onAlignText('left')"><i class="fa-solid fa-solid fa-align-left"></i></button>
           <button type="button" onclick="onAlignText('center')"><i class="fa-solid fa-align-center"></i></button>
           <button type="button" onclick="onAlignText('right')"><i class="fa-solid fa-solid fa-align-right"></i></button>
-          <select onchange="onFontFamilyChange(this.value)">
+          <select class="font-select" onchange="onFontFamilyChange(this.value)">
             <option value="Impact">Impact</option>
           </select>
-          <button type="button" onclick="onColorPick()"><i class="fa-solid fa-s"></i></button>
-          <button type="button" onclick="onColorPick()"><i class="fa-solid fa-palette"></i></button>
-          <input type="color" onchange="onColorChange(event)" id="color-picker" hidden>
+          <div class="colors-btns">
+            <button type="button" onclick="onColorPick('stroke')"><i class="fa-solid fa-s"></i></button>
+            <button type="button" onclick="onColorPick('color')"><i class="fa-solid fa-palette"></i></button>
+            <input type="color" onchange="onColorChange(this, this.value)" class="color-picker">
+          </div>
+
         </div>
         <hr>
         <div class="meme-faces"></div>

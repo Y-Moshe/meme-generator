@@ -63,7 +63,7 @@ body {
   background-color: #fefefe;
 }
 
-/* Gallery */
+/* GALLERY */
 
 .gallery {
   display: flex;
@@ -109,7 +109,7 @@ body {
   color: white;
 }
 
-/* Meme Generator */
+/* MEME GENERATOR / EDITOR */
 
 .meme-generator {
   display: grid;
@@ -156,8 +156,13 @@ body {
   outline: none;
 }
 
+/* MEME CONTROLS */
+
 .meme-controls {
-  /* display: grid; */
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  gap: 20px;
+
   border-radius: 15px;
   background-color: #19a59f;
   padding: 20px;
@@ -172,3 +177,29 @@ body {
   cursor: pointer;
 }
 
+.meme-controls > button {
+  grid-row: 1;
+}
+
+.meme-controls .font-select {
+  grid-row: 2;
+  grid-column: 1 / 4;
+}
+
+.meme-controls .colors-btns {
+  grid-row: 2;
+  grid-column: 4 / span 2;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  position: relative;
+}
+
+/* HIDDEN COLOR INPUT */
+.meme-controls .color-picker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
