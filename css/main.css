@@ -126,7 +126,6 @@ body {
 }
 
 .gallery .gallery-item {
-  position: relative;
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   cursor: pointer;
@@ -141,25 +140,6 @@ body {
   border-radius: 5px;
   width: 200px;
   height: 100%;
-}
-
-.gallery .gallery-item .gallery-item-keywords {
-  z-index: 10;
-  position: absolute;
-  bottom: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-}
-
-.gallery .gallery-item .gallery-item-keywords .gallery-badge {
-  display: inline-block;
-  margin: 0 5px;
-  padding: 0 6px;
-  background: transparent;
-  border: 2px solid white;
-  border-radius: 5px;
-  color: white;
 }
 
 /* MEME GENERATOR / EDITOR */

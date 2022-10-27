@@ -71,6 +71,17 @@ function setLineAlignment(line, x, align) {
   line.textAlign = align
 }
 
+function getRandomMemeWords() {
+  const words = []
+  const rndWordCount = getRandomIntInclusive(0, 5)
+  for (let i = 0; i < rndWordCount; i++) {
+    const rndIdx = getRandomIntInclusive(0, MEME_KEYWORDS.length - 1)
+    words.push(MEME_KEYWORDS[rndIdx])
+  }
+
+  return words
+}
+
 function getLineIdxByCoords(x, y) {
   return gMeme.lines.findIndex(({ txtWidth, fontSize: txtHeight, pos }) =>
     isRectClicked(x, y, pos.x, pos.y, txtWidth, txtHeight))

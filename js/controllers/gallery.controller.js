@@ -4,6 +4,7 @@ const RENDER_COMPONENTS = {
   MY_MEMES: '.my-memes',
   ABOUT: '.about'
 }
+const GALLERY_SIZE = 18
 
 function onInit() {
   initImgs()
@@ -14,8 +15,8 @@ function onInit() {
 
 function initImgs() {
   gImgs = []
-  for (let i = 1; i <= 18; i++) {
-    gImgs.push(createMemeImg(`assets/img/${i}.jpg`, ['test', 'gol']))
+  for (let i = 1; i <= GALLERY_SIZE; i++) {
+    gImgs.push(createMemeImg(`assets/img/${i}.jpg`, getRandomMemeWords()))
   }
 }
 
@@ -37,13 +38,10 @@ function renderGallery() {
     .innerHTML = gallery.join('')
 }
 
-function renderGalleryItem({ id, url, keywords }) {
-  const badges = keywords.map(key => `<span class="gallery-badge">${key}</span>`)
-
+function renderGalleryItem({ id, url }) {
   return `
     <div class="gallery-item" onclick="onImgSelect('${id}')">
       <img src="${url}" alt="${id} img" class="gallery-item-img" />
-      <div class="gallery-item-keywords">${badges.join('')}</div>
     </div>
   `
 }
