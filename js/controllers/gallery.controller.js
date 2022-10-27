@@ -1,8 +1,7 @@
 const RENDER_COMPONENTS = {
   GALLERY: '.gallery-container',
   EDITOR: '.meme-generator',
-  MY_MEMES: '.my-memes',
-  ABOUT: '.about'
+  MY_MEMES: '.my-memes'
 }
 const GALLERY_SIZE = 18
 
@@ -90,10 +89,6 @@ function render(component) {
       const elMyMemes = document.querySelector('.main-nav ul a.my-memes-lnk')
       setActiveNavLink(elMyMemes)
       renderSavedGallery()
-      break;
-    case RENDER_COMPONENTS.ABOUT:
-        const elAbout = document.querySelector('.main-nav ul a.about-lnk')
-        setActiveNavLink(elAbout)
       break;
   }
 
