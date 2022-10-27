@@ -209,3 +209,24 @@ function onColorChange(elColor, color) {
   renderCanvas()
   onTextChange(line.txt)
 }
+
+// DOWNLOAD & SHARE
+
+function onShare(event) {
+  const imgDataUrl = gCanvas.toDataURL('image/jpeg')
+  event.preventDefault()
+
+  function onSuccess(uploadedImgUrl) {
+    const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`, '_black')
+  }
+  // Send the image to the server
+  doUploadImg(imgDataUrl, onSuccess)
+}
+
+function onDownload(elDownload) {
+  const url = gCanvas.toDataURL()
+  elDownload.href = url
+  elDownload.setAttribute('download', 'meme-generated')
+}
+
