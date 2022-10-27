@@ -8,16 +8,22 @@ const GALLERY_SIZE = 18
 
 function onInit() {
   initImgs()
+  loadSavedMemes()
   renderKeywordsList()
   initCanvas()
   render(RENDER_COMPONENTS.GALLERY)
 }
 
 function initImgs() {
-  gImgs = []
+  loadImgs()
+  const imgs = getImgs()
+
+  if (imgs.length > 0) return // skip incase already exists in localStorage
   for (let i = 1; i <= GALLERY_SIZE; i++) {
-    gImgs.push(createMemeImg(`assets/img/${i}.jpg`, getRandomMemeWords()))
+    imgs.push(createImg(makeId(), `assets/img/${i}.jpg`, getRandomMemeWords()))
   }
+
+  setImgs(imgs)
 }
 
 function renderKeywordsList() {
@@ -46,8 +52,27 @@ function renderGalleryItem({ id, url }) {
   `
 }
 
-function onImgSelect(id) {
+function renderSavedGallery() {
+  const gallery = getSavedImgs().map(({ memeId, img }) =>
+    renderSavedGalleryItem(memeId, img))
+
+  document.querySelector('.my-memes')
+    .innerHTML = gallery.join('')
+}
+
+function renderSavedGalleryItem(memeId, { id, url }) {
+  return `
+    <div class="gallery-item" onclick="onImgSelect('${id}', '${memeId}')">
+      <img src="${url}" alt="${id} img" class="gallery-item-img" />
+    </div>
+  `
+}
+
+function onImgSelect(id, memeId) {
   setSelectedImgId(id)
+
+  initialMeme()
+  if (memeId) setMeme(getMemeById(memeId))
   render(RENDER_COMPONENTS.EDITOR)
 }
 
@@ -64,7 +89,7 @@ function render(component) {
     case RENDER_COMPONENTS.MY_MEMES:
       const elMyMemes = document.querySelector('.main-nav ul a.my-memes-lnk')
       setActiveNavLink(elMyMemes)
-      // TO-DO
+      renderSavedGallery()
       break;
     case RENDER_COMPONENTS.ABOUT:
         const elAbout = document.querySelector('.main-nav ul a.about-lnk')

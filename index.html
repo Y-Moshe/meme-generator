@@ -76,16 +76,20 @@
         <div class="meme-faces"></div>
         <div class="meme-share flex space-between">
           <a class="share-link" href="#" onclick="onShare(event)" target="_blank"><i class="fa-solid fa-share-nodes"></i> Share</a>
+          <a class="save-link" href="#" onclick="onSave(event)" target="_blank"><i class="fa-solid fa-floppy-disk"></i> Save</a>
           <a class="download-link" href="#" onclick="onDownload(this)"><i class="fa-solid fa-download"></i> Download</a>
         </div>
       </aside>
     </section>
+
+    <section class="gallery my-memes hide"></section>
 
   </main>
 
   <!-- Services -->
   <script src="js/services/utils.service.js"></script>
   <script src="js/services/storage.service.js"></script>
+  <script src="js/services/image.service.js"></script>
   <script src="js/services/meme.service.js"></script>
 
   <!-- Controllers -->

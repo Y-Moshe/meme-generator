@@ -23,14 +23,13 @@ function renderMeme() {
   img.onload = drawImageActualSize
   img.src = url
   gCanvasBgImg = img
-
-  renderCanvas()
 }
 
 function drawImageActualSize() {
   gCanvas.width = this.naturalWidth
   gCanvas.height = this.naturalHeight
   gCtx.drawImage(this, 0, 0, gCanvas.width, gCanvas.height)
+  renderCanvas()
 }
 
 function clearCanvas() {
@@ -213,15 +212,25 @@ function onColorChange(elColor, color) {
 // DOWNLOAD & SHARE
 
 function onShare(event) {
-  const imgDataUrl = gCanvas.toDataURL('image/jpeg')
   event.preventDefault()
+  const imgDataUrl = gCanvas.toDataURL('image/jpeg')
 
   function onSuccess(uploadedImgUrl) {
     const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`, '_black')
   }
-  // Send the image to the server
+
   doUploadImg(imgDataUrl, onSuccess)
+}
+
+function onSave(event) {
+  event.preventDefault()
+  const imgDataUrl = gCanvas.toDataURL('image/jpeg')
+
+  const id = makeId()
+  addImg(id, imgDataUrl, [])
+  setSelectedImgId(id)
+  saveMeme()
 }
 
 function onDownload(elDownload) {
@@ -229,4 +238,3 @@ function onDownload(elDownload) {
   elDownload.href = url
   elDownload.setAttribute('download', 'meme-generated')
 }
-

@@ -1,24 +1,31 @@
+const MEMES_STORAGE_KEY = 'memesDB'
 const MEME_KEYWORDS = ['Funny', 'Animal', 'Men', 'Women', 'Comic', 'Smile']
 
 let gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
-let gImgs = [{ id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'] }];
-let gMeme = {
+const initialMemeState = {
+  id: makeId(),
   selectedImgId: 5,
   selectedLineIdx: 0,
   isDrag: false,
   lines: [
     {
-      txt: 'I sometimes eat Falafel',
+      txt: 'Type to Edit',
       fontSize: 20,
       fontFamily: 'Impact',
       textAlign: 'left',
       stroke: 'black',
       color: 'red',
-      pos: { x: 0, y: 0 },
+      pos: { x: 100, y: 50 },
       txtWidth: 300
     }
   ]
+}
+let gSavedMemes = []
+let gMeme = initialMemeState
+
+function initialMeme() {
+  gMeme = JSON.parse(JSON.stringify(initialMemeState))
 }
 
 function setIsDrag(drag) {
@@ -29,16 +36,16 @@ function getIsDrag() {
   return gMeme.isDrag
 }
 
-function getImgs() {
-  return gImgs
-}
-
-function getImgById(id) {
-  return gImgs.find(img => img.id === id)
-}
-
 function getMeme() {
   return gMeme
+}
+
+function setMeme(meme) {
+  gMeme = meme
+}
+
+function getMemeById(id) {
+  return gSavedMemes.find(meme => meme.id === id)
 }
 
 function setSelectedImgId(id) {
@@ -115,28 +122,20 @@ function removeTextLine() {
   return gMeme.lines.splice(idx, 1)[0]
 }
 
-function createMemeImg(url, keywords) {
-  return {
-    id: makeId(),
-    url,
-    keywords
-  }
+// STORAGE
+
+function saveMeme() {
+  const savedMeme = gSavedMemes.find(meme => meme.id === gMeme.id)
+  if (!savedMeme) gSavedMemes.push(gMeme)
+
+  saveToLocaStorage(MEMES_STORAGE_KEY, gSavedMemes)
 }
 
-function doUploadImg(imgDataUrl, onSuccess) {
-  const formData = new FormData()
-  formData.append('img', imgDataUrl)
+function loadSavedMemes() {
+  const memes = loadFromLocaStorage(MEMES_STORAGE_KEY) || []
+  gSavedMemes = memes
+}
 
-  const XHR = new XMLHttpRequest()
-  XHR.onreadystatechange = () => {
-    if (XHR.readyState !== XMLHttpRequest.DONE) return
-    if (XHR.status !== 200) return console.error('Error uploading image')
-    const { responseText: url } = XHR
-    onSuccess(url)
-  }
-  XHR.onerror = (req, ev) => {
-    console.error('Error connecting to server with request:', req, '\nGot response data:', ev)
-  }
-  XHR.open('POST', 'https://ca-upload.com/here/upload.php')
-  XHR.send(formData)
+function getSavedMemes() {
+  return gSavedMemes
 }
