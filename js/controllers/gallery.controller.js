@@ -9,18 +9,18 @@ function onInit() {
   initImgs()
   loadSavedMemes()
   renderKeywordsList()
+  renderStickers()
   initCanvas()
   render(RENDER_COMPONENTS.GALLERY)
 }
 
 function initImgs() {
   loadImgs()
-  const imgs = getImgs()
-
+  let imgs = getImgs()
   if (imgs.length > 0) return // skip incase already exists in localStorage
-  for (let i = 1; i <= GALLERY_SIZE; i++) {
-    imgs.push(createImg(makeId(), `assets/img/${i}.jpg`, getRandomMemeWords()))
-  }
+
+  imgs = new Array(GALLERY_SIZE).fill().map((_, idx) =>
+    createImg(makeId(), `assets/img/${idx + 1}.jpg`, getRandomMemeWords()))
 
   setImgs(imgs)
 }
@@ -109,4 +109,16 @@ function setActiveNavLink(elActiveLink) {
   document.querySelector('.main-nav ul a.active-link')
     ?.classList.remove('active-link')
   elActiveLink?.classList.add('active-link')
+}
+
+function renderStickers() {
+  const faces = getStickersChars().map(renderSticker)
+
+  document.querySelector('.meme-faces')
+    .innerHTML = faces.join('')
+}
+
+function renderSticker(sticker, idx) {
+  return `<span class="face" draggable="true"
+    ondragstart="onStickerDragStart(${idx})">${sticker}</span>`
 }

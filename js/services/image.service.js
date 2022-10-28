@@ -1,6 +1,15 @@
 const IMGS_STORAGE_KEY = 'imgsDB'
 
 let gImgs = [{ id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'], isSaved: false }]
+let gStickers = ['😆', '😎', '😢', '😁', '😉', '😒', '😍', '😂', '🤣','😜']
+
+function getStickersChars() {
+  return gStickers
+}
+
+function getStickerCharByIdx(idx) {
+  return gStickers[idx]
+}
 
 function getImgs(isSaveOnly) {
   return isSaveOnly ?

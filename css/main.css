@@ -323,6 +323,16 @@ body {
 
 .meme-actions .meme-faces {
   flex-grow: 1;
+  border-radius: 30px;
+  background-color: #ebeef3;
+  margin: 20px 0 30px;
+  text-align: center;
+  font-size: 2em;
+  padding: 5px 0;
+}
+
+.meme-actions .meme-faces .face {
+  cursor: grab;
 }
 
 .meme-actions .meme-share a {

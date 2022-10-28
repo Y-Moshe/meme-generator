@@ -1,11 +1,17 @@
 const MEMES_STORAGE_KEY = 'memesDB'
 const MEME_KEYWORDS = ['Funny', 'Animal', 'Men', 'Women', 'Comic', 'Smile']
+const SELECTED_ITEMS = {
+  LINE: 'LINE',
+  STICKER: 'STICKER'
+}
 
 let gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
 const initialMemeState = {
   id: makeId(),
+  lastSelectedItem: 'LINE', // or STICKER
   selectedImgId: 5,
+  selectedStickerIdx: 0,
   selectedLineIdx: 0,
   isDrag: false,
   lines: [
@@ -18,6 +24,15 @@ const initialMemeState = {
       color: 'red',
       pos: { x: 100, y: 50 },
       txtWidth: 300
+    }
+  ],
+  stickers: [
+    {
+      sticker: '😜',
+      pos: { x: 100, y: 50 },
+      radius: 10,
+      fontSize: 10,
+      fontFamily: 'Impact'
     }
   ]
 }
@@ -48,12 +63,22 @@ function getMemeById(id) {
   return gSavedMemes.find(meme => meme.id === id)
 }
 
+function getLastSelectedItem() {
+  return gMeme.lastSelectedItem
+}
+
 function setSelectedImgId(id) {
   gMeme.selectedImgId = id
 }
 
 function setSelectedLineIdx(idx) {
   gMeme.selectedLineIdx = idx
+  gMeme.lastSelectedItem = SELECTED_ITEMS.LINE
+}
+
+function setSelectedStickerIdx(idx) {
+  gMeme.selectedStickerIdx = idx
+  gMeme.lastSelectedItem = SELECTED_ITEMS.STICKER
 }
 
 function selectNextLine() {
@@ -65,6 +90,14 @@ function selectNextLine() {
 function getSelectedLine() {
   const { selectedLineIdx, lines } = gMeme
   return lines[selectedLineIdx]
+}
+
+function getSelectedStickerIdx() {
+  return gMeme.selectedStickerIdx
+}
+
+function getSelectedSticker() {
+  return gMeme.stickers[gMeme.selectedStickerIdx]
 }
 
 function setLineTxt(txt, txtWidth) {
@@ -94,9 +127,19 @@ function getLineIdxByCoords(x, y) {
     isRectClicked(x, y, pos.x, pos.y, txtWidth, txtHeight))
 }
 
+function getStickerIdxByCoords(x, y) {
+  return gMeme.stickers.findIndex(({ pos, radius }) =>
+    isCircleClicked(x, y, pos.x, pos.y, radius))
+}
+
 function isTextLinePos(x, y) {
   return gMeme.lines.some(({ txtWidth, fontSize: txtHeight, pos }) =>
     isRectClicked(x, y, pos.x, pos.y, txtWidth, txtHeight))
+}
+
+function isStickerPos(x, y) {
+  return gMeme.stickers.some(({ pos, radius }) =>
+    isCircleClicked(x, y, pos.x, pos.y, radius))
 }
 
 function addTextLine(txt, txtWidth, fontSize, fontFamily,
@@ -110,16 +153,32 @@ function addTextLine(txt, txtWidth, fontSize, fontFamily,
   setSelectedLineIdx(newIdx - 1)
 }
 
+function addSticker(sticker, pos, radius) {
+  gMeme.stickers.push({ sticker, pos, radius, fontSize: 32, fontFamily: 'Impact' })
+}
+
 function moveTextLine(dx, dy) {
   const idx = gMeme.selectedLineIdx
   gMeme.lines[idx].pos.x += dx
   gMeme.lines[idx].pos.y += dy
 }
 
+function moveSticker(dx, dy) {
+  const idx = gMeme.selectedStickerIdx
+  gMeme.stickers[idx].pos.x += dx
+  gMeme.stickers[idx].pos.y += dy
+}
+
 function removeTextLine() {
   const idx = gMeme.selectedLineIdx
   setSelectedLineIdx(-1)
   return gMeme.lines.splice(idx, 1)[0]
+}
+
+function removeSticker() {
+  const idx = gMeme.selectedStickerIdx
+  setSelectedStickerIdx(-1)
+  return gMeme.stickers.splice(idx, 1)[0]
 }
 
 // STORAGE

@@ -8,9 +8,12 @@ function initCanvas() {
   gCanvas.addEventListener('touchstart', onMouseDown)
   gCanvas.addEventListener('touchmove', onMouseMove)
   gCanvas.addEventListener('touchend', onMouseUp)
+
   gCanvas.addEventListener('mousedown', onMouseDown)
   gCanvas.addEventListener('mousemove', onMouseMove)
   gCanvas.addEventListener('mouseup', onMouseUp)
+  gCanvas.addEventListener('dragover', e => e.preventDefault())
+  gCanvas.addEventListener('drop', onStickerDrop)
   // gCanvas.addEventListener('click')
 
   gCtx = gCanvas.getContext('2d')
@@ -40,12 +43,14 @@ function renderCanvas() {
   clearCanvas()
   gCtx.drawImage(gCanvasBgImg, 0, 0, gCanvas.width, gCanvas.height)
 
-  const { lines } = getMeme()
+  const { lines, stickers } = getMeme()
   lines.forEach((line, idx) => {
     const { txt, txtWidth, fontSize, fontFamily,
       color, stroke, pos, textAlign } = line
     
     gCtx.font = `${fontSize}px ${fontFamily}`
+    gCtx.textBaseline = 'alphabetic' // default
+    gCtx.textAlign = 'start' // default
     setTextAlignment(textAlign, lines[idx])
     
     const txtStartHeight = pos.y + fontSize
@@ -55,6 +60,19 @@ function renderCanvas() {
     gCtx.fillText(txt, pos.x, txtStartHeight)
 
     gCtx.rect(pos.x, pos.y, txtWidth, fontSize)
+  })
+
+  stickers.forEach(_ => {
+    const { sticker, fontSize, pos, radius, fontFamily } = _
+    
+    gCtx.font = `${fontSize}px ${fontFamily}`
+    gCtx.textBaseline = 'middle'
+    gCtx.textAlign = 'center'
+    gCtx.fillText(sticker, pos.x, pos.y)
+
+    gCtx.beginPath()
+    gCtx.arc(pos.x, pos.y, radius, 0, 360)
+    gCtx.closePath()
   })
 }
 
@@ -70,6 +88,13 @@ function onMouseDown(event) {
     setUserCursor('grabbing')
     setLineMark(true, true)
     setTextAlignment('dragged')
+  }
+
+  const stickerIdx = getStickerIdxByCoords(x, y)
+  if (stickerIdx >= 0) {
+    setIsDrag(true)
+    setSelectedStickerIdx(stickerIdx)
+    setUserCursor('grabbing')
   }
 
   gLastPos = { x, y }
@@ -93,13 +118,16 @@ function onMouseMove(event) {
   if (getIsDrag()) {
     const dx = x - gLastPos.x
     const dy = y - gLastPos.y
-    moveTextLine(dx, dy)
+
+    if (isTextLinePos(x, y)) moveTextLine(dx, dy)
+    else if (isStickerPos(x, y)) moveSticker(dx, dy)
+
     gLastPos = { x, y }
     renderCanvas()
     return
   }
 
-  if (isTextLinePos(x, y)) setUserCursor('grab')
+  if (isTextLinePos(x, y) || isStickerPos(x, y)) setUserCursor('grab')
   else setUserCursor('unset')
 }
 
@@ -107,6 +135,20 @@ function onMouseUp(event) {
   setIsDrag(false)
   setLineMark(false, false)
   setUserCursor('unset')
+}
+
+function onStickerDrop(event) {
+  event.preventDefault()
+
+  const { x, y } = getEventPos(event)
+  const sticker = getStickerCharByIdx(getSelectedStickerIdx())
+  const radius = gCtx.measureText(sticker).width / 2
+  addSticker(sticker, { x, y, }, radius)
+  renderCanvas()
+}
+
+function onStickerDragStart(stickerIdx) {
+  setSelectedStickerIdx(stickerIdx)
 }
 
 function setUserCursor(cursor) {
@@ -157,10 +199,18 @@ function getCenterPos(lineWidth) {
 // CONTROLS EVENTS
 
 function onFontSizeChange(isIncrease) {
-  const line = getSelectedLine()
-  isIncrease ? line.fontSize++ : line.fontSize--
+  if (getLastSelectedItem() === SELECTED_ITEMS.LINE) {
+    const line = getSelectedLine()
+    isIncrease ? line.fontSize++ : line.fontSize--
+    onTextChange(line.txt)
+  } else if (getLastSelectedItem() === SELECTED_ITEMS.STICKER) {
+    const sticker = getSelectedSticker()
+    isIncrease ? sticker.fontSize++ : sticker.fontSize--
+    const radius = gCtx.measureText(sticker.sticker).width / 2
+    sticker.radius = radius
+  }
+
   renderCanvas()
-  onTextChange(line.txt)
 }
 
 // left, center, right
@@ -188,10 +238,18 @@ function setTextAlignment(align, line = null) {
 }
 
 function onFontFamilyChange(fontFamily) {
-  const line = getSelectedLine()
-  line.fontFamily = fontFamily
+  if (getLastSelectedItem() === SELECTED_ITEMS.LINE) {
+    const line = getSelectedLine()
+    line.fontFamily = fontFamily
+    onTextChange(line.txt)
+  } else if (getLastSelectedItem() === SELECTED_ITEMS.STICKER) {
+    const sticker = getSelectedSticker()
+    sticker.fontFamily = fontFamily
+    const radius = gCtx.measureText(sticker.sticker).width / 2
+    sticker.radius = radius
+  }
+
   renderCanvas()
-  onTextChange(line.txt)
 }
 
 function onColorPick(type) {
