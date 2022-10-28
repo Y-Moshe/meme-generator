@@ -8,6 +8,7 @@ const GALLERY_SIZE = 18
 function onInit() {
   initImgs()
   loadSavedMemes()
+  initKeywords()
   renderKeywordsList()
   renderStickers()
   initCanvas()
@@ -33,7 +34,15 @@ function renderKeywordsList() {
 }
 
 function renderKeywordItem(word) {
-  return `<span class="word">${word}</span>`
+  return `<span class="word" style="font-size: ${getKeywordVal(word)}px"
+    onclick="onKeywordClick('${word}')">${word}</span>`
+}
+
+function onKeywordClick(word) {
+  increaseKeywordPopularity(word)
+  renderKeywordsList()
+  setFilter(word)
+  renderGallery()
 }
 
 function renderGallery() {

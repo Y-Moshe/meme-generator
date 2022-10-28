@@ -1,11 +1,11 @@
 const MEMES_STORAGE_KEY = 'memesDB'
-const MEME_KEYWORDS = ['Funny', 'Animal', 'Men', 'Women', 'Comic', 'Smile']
 const SELECTED_ITEMS = {
   LINE: 'LINE',
   STICKER: 'STICKER'
 }
 
-let gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
+const MEME_KEYWORDS = ['Funny', 'Animal', 'Men', 'Women', 'Comic', 'Smile']
+let gKeywordSearchCountMap
 
 const initialMemeState = {
   id: makeId(),
@@ -41,6 +41,22 @@ let gMeme = initialMemeState
 
 function initialMeme() {
   gMeme = JSON.parse(JSON.stringify(initialMemeState))
+}
+
+function initKeywords() {
+  gKeywordSearchCountMap = MEME_KEYWORDS
+    .reduce((prevVal, currVal) => {
+      prevVal[currVal] = getRandomIntInclusive(10, 25)
+      return prevVal
+  }, {})
+}
+
+function getKeywordVal(word) {
+  return gKeywordSearchCountMap[word]
+}
+
+function increaseKeywordPopularity(word) {
+  gKeywordSearchCountMap[word]++
 }
 
 function setIsDrag(drag) {

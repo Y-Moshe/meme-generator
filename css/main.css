@@ -104,6 +104,13 @@ body {
   border-radius: 25px;
   background-color: rgba(254, 254, 254, 0.4);
   color: white;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.gallery-container .filters .keywords .word {
+  cursor: pointer;
 }
 
 .gallery-container .filters button {
