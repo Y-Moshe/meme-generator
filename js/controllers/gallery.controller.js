@@ -122,3 +122,8 @@ function renderSticker(sticker, idx) {
   return `<span class="face" draggable="true"
     ondragstart="onStickerDragStart(${idx})">${sticker}</span>`
 }
+
+function onFilterChange(filter) {
+  setFilter(filter)
+  renderGallery()
+}

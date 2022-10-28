@@ -2,6 +2,7 @@ const IMGS_STORAGE_KEY = 'imgsDB'
 
 let gImgs = [{ id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'], isSaved: false }]
 let gStickers = ['😆', '😎', '😢', '😁', '😉', '😒', '😍', '😂', '🤣','😜']
+let gFilter = ''
 
 function getStickersChars() {
   return gStickers
@@ -14,7 +15,16 @@ function getStickerCharByIdx(idx) {
 function getImgs(isSaveOnly) {
   return isSaveOnly ?
     gImgs.filter(img => img.isSaved) :
-    gImgs.filter(img => !img.isSaved)
+    gImgs.filter(img => !img.isSaved &&
+      img.keywords.some(word => word.includes(gFilter)))
+}
+
+function setFilter(filter) {
+  gFilter = filter
+}
+
+function getFilter() {
+  return gFilter
 }
 
 function getSavedImgs() {
