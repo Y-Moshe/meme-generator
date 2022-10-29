@@ -196,10 +196,11 @@ body {
 
 .meme-generator .meme-editor-container {
   width: 100%;
-  text-align: center;
+  display: flex;
 }
 
 .meme-generator .meme-editor-container .meme-editor {
+  margin: auto;
   border-radius: 15px;
   outline: 3px solid rgba(255, 255, 255, 0.4);
 }

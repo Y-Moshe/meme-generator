@@ -1,3 +1,4 @@
+const CANVAS_WIDTH = 500
 let gCanvas = document.createElement('canvas')
 let gCtx = gCanvas.getContext('2d')
 let gCanvasBgImg
@@ -32,8 +33,8 @@ function renderMeme(onInitMeme = null) {
 }
 
 function drawImageActualSize(img) {
-  gCanvas.width = img.naturalWidth
-  gCanvas.height = img.naturalHeight
+  gCanvas.width = CANVAS_WIDTH
+  gCanvas.height = img.naturalHeight * gCanvas.width / img.naturalWidth
   gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
   renderCanvas()
 }

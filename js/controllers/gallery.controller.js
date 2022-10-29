@@ -7,7 +7,7 @@ const RENDER_COMPONENTS = {
   EDITOR: '.meme-generator',
   MY_MEMES: '.my-memes'
 }
-const GALLERY_SIZE = 18
+const GALLERY_SIZE = 25
 
 function onInit() {
   initImgs()
