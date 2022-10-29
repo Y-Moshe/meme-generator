@@ -25,6 +25,7 @@ function initImgs() {
     createImg(idx + 1, `assets/img/${idx + 1}.jpg`, getRandomMemeWords()))
 
   setImgs(imgs)
+  saveImgs()
 }
 
 function renderDataList() {
@@ -78,11 +79,11 @@ function renderSavedGallery() {
     .innerHTML = gallery.join('')
 }
 
-function renderSavedGalleryItem(memeId, { id, url }) {
+function renderSavedGalleryItem(memeId, { id, previewUrl }) {
   return `
     <div class="gallery-item" onclick="onImgSelect(${id}, '${memeId}')">
       <div class="gallery-item-overlay"></div>
-      <img src="${url}" alt="${id} img" class="gallery-item-img" />
+      <img src="${previewUrl}" alt="${id} img" class="gallery-item-img" />
     </div>
   `
 }
@@ -91,8 +92,10 @@ function onImgSelect(id, memeId) {
   initialMeme()
   setSelectedImgId(id)
 
-  if (memeId) setMeme(getMemeById(memeId))
-  else renderMeme(() => generateStartTxt())
+  if (memeId) {
+    setMeme(getMemeById(memeId))
+    renderMeme()
+  } else renderMeme(() => generateStartTxt())
 
   displayComponent(RENDER_COMPONENTS.EDITOR)
 }

@@ -19,13 +19,13 @@ function initCanvas() {
   gCtx = gCanvas.getContext('2d')
 }
 
-function renderMeme(onInitMeme) {
+function renderMeme(onInitMeme = null) {
   const { selectedImgId } = getMeme()
   const { url } = getImgById(selectedImgId)
   const img = new Image(200, 200)
   img.onload = () => {
     drawImageActualSize(img)
-    onInitMeme()
+    onInitMeme && onInitMeme()
   }
   img.src = url
   gCanvasBgImg = img
@@ -297,10 +297,13 @@ function onShare(event) {
 
 function onSave(event) {
   event.preventDefault()
-  const imgDataUrl = gCanvas.toDataURL('image/jpeg')
+  const previewUrl = gCanvas.toDataURL()
 
-  const id = makeId()
-  addImg(id, imgDataUrl, [])
+  const { selectedImgId } = getMeme()
+  const { url } = getImgById(selectedImgId)
+
+  const id = generateImgId()
+  addImg(id, url, previewUrl, [])
   setSelectedImgId(id)
   saveMeme()
 }

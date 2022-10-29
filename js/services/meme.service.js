@@ -65,7 +65,7 @@ function getLastSelectedItem() {
 }
 
 function setSelectedImgId(id) {
-  gMeme.selectedImgId = id
+  gMeme.selectedImgId = +id
 }
 
 function setSelectedLineIdx(idx) {
@@ -181,9 +181,7 @@ function removeSticker() {
 // STORAGE
 
 function saveMeme() {
-  const savedMeme = gSavedMemes.find(meme => meme.id === gMeme.id)
-  if (!savedMeme) gSavedMemes.push(gMeme)
-
+  gSavedMemes.push(gMeme)
   saveToLocaStorage(MEMES_STORAGE_KEY, gSavedMemes)
 }
 

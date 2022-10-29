@@ -36,9 +36,13 @@ function setImgs(imgs) {
   gImgs = imgs
 }
 
-function addImg(id, url, keywords) {
-  gImgs.push({ ...createImg(id, url, keywords), isSaved: true })
+function addImg(id, url, previewUrl, keywords) {
+  gImgs.push({ ...createImg(id, url, keywords), previewUrl, isSaved: true })
   saveImgs()
+}
+
+function generateImgId() {
+  return gImgs.length + 1
 }
 
 function getImgById(id) {
