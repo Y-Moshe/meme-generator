@@ -104,14 +104,20 @@ function onMouseDown(event) {
 }
 
 function setLineMark(isMark, isAllLine = false) {
-  let { stroke, txtWidth, fontSize: txtHeight, pos } = getSelectedLine()
+  let { txtWidth, fontSize, pos } = getSelectedLine()
   let { x, y } = pos
+  const margin = 10
+  const txtHeight = fontSize + 10
+
   if (isAllLine) {
-    txtWidth = gCanvas.width
-    x = 0
+    txtWidth = gCanvas.width - margin * 2
+    x = margin
   }
 
-  gCtx.strokeStyle = isMark ? stroke : 'transparent'
+  gCtx.lineJoin = 'round'
+  gCtx.fillStyle = 'rgba(255, 255, 255, 0.25)'
+  gCtx.fillRect(x, y, txtWidth, txtHeight)
+  gCtx.strokeStyle = isMark ? 'rgba(0, 0, 0, 0.5)' : 'transparent'
   gCtx.strokeRect(x, y, txtWidth, txtHeight)
 }
 
