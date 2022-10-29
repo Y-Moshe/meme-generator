@@ -1,3 +1,7 @@
+const FONT_OPTIONS = [
+  'Impact', 'cursive', 'monospace',
+  'fantasy', 'serif', 'sans-serif'
+]
 const RENDER_COMPONENTS = {
   GALLERY: '.gallery-container',
   EDITOR: '.meme-generator',
@@ -7,11 +11,14 @@ const GALLERY_SIZE = 18
 
 function onInit() {
   initImgs()
-  loadSavedMemes()
   initKeywords()
+  loadSavedMemes()
+
   renderKeywordsList()
   renderStickers()
   renderDataList()
+  renderFontOptions()
+
   initCanvas()
   render(RENDER_COMPONENTS.GALLERY)
 }
@@ -34,6 +41,14 @@ function renderDataList() {
   
   document.getElementById('meme-list')
     .innerHTML = keywords.join('')
+}
+
+function renderFontOptions() {
+  const fonts = FONT_OPTIONS
+    .map(key => `<option value="${key}">${key}</option>`)
+
+  document.querySelector('.meme-controls .font-select')
+    .innerHTML = fonts.join('')
 }
 
 function renderKeywordsList() {
