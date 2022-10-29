@@ -82,25 +82,35 @@ function renderCanvas() {
 // MOUSE EVENTS
 
 function onMouseDown(event) {
+  event.preventDefault() // to allow loadLineFocus
   const { x, y } = getEventPos(event)
 
   const lineIdx = getLineIdxByCoords(x, y)
   if (lineIdx >= 0) {
-    setIsDrag(true)
     setSelectedLineIdx(lineIdx)
-    setUserCursor('grabbing')
     setLineMark(true, true)
     setTextAlignment('dragged')
+    loadLineTxt()
   }
 
   const stickerIdx = getStickerIdxByCoords(x, y)
   if (stickerIdx >= 0) {
-    setIsDrag(true)
     setSelectedStickerIdx(stickerIdx)
+  }
+
+  if (stickerIdx >= 0 || lineIdx >= 0) {
     setUserCursor('grabbing')
+    setIsDrag(true)
   }
 
   gLastPos = { x, y }
+}
+
+function loadLineTxt() {
+  const elTxt = document.querySelector('.editor-textbox')
+  const { txt } = getSelectedLine()
+  elTxt.value = txt
+  elTxt.focus()
 }
 
 function setLineMark(isMark, isAllLine = false) {
@@ -189,13 +199,8 @@ function onRemoveText() {
 
 function onNextText() {
   selectNextLine()
-  setInputFocus()
   renderCanvas()
   setLineMark(true, true)
-}
-
-function setInputFocus() {
-  document.querySelector('.editor-textbox').focus()
 }
 
 function getCenterPos(lineWidth) {
