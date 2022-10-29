@@ -38,12 +38,14 @@ body {
   gap: 15px;
 }
 
-.logo-img {
+.main-nav .logo-img {
   width: 100px;
   height: auto;
+  border-radius: 50%;
+  transform: scaleX(-1);
 }
 
-.link {
+.main-nav ul .link {
   color: #fefefe;
   font-size: 1.25em;
   font-style: normal;
@@ -54,14 +56,14 @@ body {
   transition: .3s;
 }
 
-.link:hover {
+.main-nav ul .link:hover {
   color: #21ac91;
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
   border-radius: 1.25em;
   background-color: #fefefe;
 }
 
-.active-link {
+.main-nav ul .link.active-link {
   color: #21ac91;
   font-weight: 500;
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
