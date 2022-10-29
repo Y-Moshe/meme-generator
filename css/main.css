@@ -149,7 +149,7 @@ body {
   transition: .3s;
 }
 
-.gallery .gallery-item:hover {
+.gallery .gallery-item:hover:not(.user-img-select) {
   box-shadow: none;
 }
 
@@ -172,6 +172,18 @@ body {
   border-radius: 5px;
   width: 200px;
   height: 100%;
+}
+
+.gallery .user-img-select {
+  min-width: 200px;
+  text-align: center;
+  display: flex;
+  color: white;
+  font-size: 3rem;
+}
+
+.gallery .user-img-select:hover {
+  color: var(--secondary-color);
 }
 
 /* MEME GENERATOR / EDITOR */

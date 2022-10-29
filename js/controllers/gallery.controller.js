@@ -57,9 +57,30 @@ function onKeywordClick(word) {
 
 function renderGallery() {
   const gallery = getImgs().map(renderGalleryItem)
+  gallery.unshift(`
+    <div class="gallery-item user-img-select"
+      onclick="document.querySelector('.user-img').click()">
+      <div class="flex flex-col algin align-center m-auto">
+        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-image"></i>
+      </div>
+    </div>
+  `)
 
   document.querySelector('.gallery')
     .innerHTML = gallery.join('')
+}
+
+function loadUserImg(event) {
+  const file = event.target.files[0]
+  const fileReader = new FileReader()
+  fileReader.onload = () => {
+    const id = generateImgId()
+    addImg(id, fileReader.result)
+    onImgSelect(id)
+  }
+
+  fileReader.readAsDataURL(file)
 }
 
 function renderGalleryItem({ id, url }) {
