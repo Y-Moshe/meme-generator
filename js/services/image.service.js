@@ -12,11 +12,10 @@ function getStickerCharByIdx(idx) {
   return gStickers[idx]
 }
 
-function getImgs(isSaveOnly) {
-  return isSaveOnly ?
-    gImgs.filter(img => img.isSaved) :
-    gImgs.filter(img => !img.isSaved &&
-      img.keywords.some(word => word.includes(gFilter)))
+function getImgs() {
+  return gFilter.trim() ?
+    gImgs.filter(img => img.keywords.some(word => word.includes(gFilter))) :
+    gImgs
 }
 
 function setFilter(filter) {
@@ -36,8 +35,8 @@ function setImgs(imgs) {
   gImgs = imgs
 }
 
-function addImg(id, url, previewUrl, keywords) {
-  gImgs.push({ ...createImg(id, url, keywords), previewUrl, isSaved: true })
+function addImg(id, url, previewUrl = '') {
+  gImgs.push({ ...createImg(id, url, []), previewUrl })
   saveImgs()
 }
 

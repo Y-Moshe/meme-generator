@@ -303,7 +303,7 @@ function onSave(event) {
   const { url } = getImgById(selectedImgId)
 
   const id = generateImgId()
-  addImg(id, url, previewUrl, [])
+  addImg(id, url, previewUrl)
   setSelectedImgId(id)
   saveMeme()
 }
