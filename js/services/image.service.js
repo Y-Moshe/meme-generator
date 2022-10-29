@@ -1,6 +1,6 @@
 const IMGS_STORAGE_KEY = 'imgsDB'
 
-let gImgs = [{ id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'], isSaved: false }]
+let gImgs = []
 let gStickers = ['😆', '😎', '😢', '😁', '😉', '😒', '😍', '😂', '🤣','😜']
 let gFilter = ''
 
@@ -46,11 +46,7 @@ function getImgById(id) {
 }
 
 function createImg(id, url, keywords) {
-  return {
-    id,
-    url,
-    keywords
-  }
+  return { id, url, keywords }
 }
 
 function doUploadImg(imgDataUrl, onSuccess) {

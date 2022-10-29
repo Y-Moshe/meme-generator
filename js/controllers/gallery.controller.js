@@ -21,7 +21,7 @@ function initImgs() {
   if (imgs.length > 0) return // skip incase already exists in localStorage
 
   imgs = new Array(GALLERY_SIZE).fill().map((_, idx) =>
-    createImg(makeId(), `assets/img/${idx + 1}.jpg`, getRandomMemeWords()))
+    createImg(idx + 1, `assets/img/${idx + 1}.jpg`, getRandomMemeWords()))
 
   setImgs(imgs)
 }
@@ -54,7 +54,7 @@ function renderGallery() {
 
 function renderGalleryItem({ id, url }) {
   return `
-    <div class="gallery-item" onclick="onImgSelect('${id}')">
+    <div class="gallery-item" onclick="onImgSelect(${id})">
       <div class="gallery-item-overlay"></div>
       <img src="${url}" alt="${id} img" class="gallery-item-img" />
     </div>
@@ -71,7 +71,7 @@ function renderSavedGallery() {
 
 function renderSavedGalleryItem(memeId, { id, url }) {
   return `
-    <div class="gallery-item" onclick="onImgSelect('${id}', '${memeId}')">
+    <div class="gallery-item" onclick="onImgSelect(${id}, '${memeId}')">
       <div class="gallery-item-overlay"></div>
       <img src="${url}" alt="${id} img" class="gallery-item-img" />
     </div>
@@ -79,17 +79,31 @@ function renderSavedGalleryItem(memeId, { id, url }) {
 }
 
 function onImgSelect(id, memeId) {
+  initialMeme()
   setSelectedImgId(id)
 
-  initialMeme()
   if (memeId) setMeme(getMemeById(memeId))
-  render(RENDER_COMPONENTS.EDITOR)
+  else renderMeme(() => generateStartTxt())
+
+  displayComponent(RENDER_COMPONENTS.EDITOR)
+}
+
+function generateStartTxt() {
+  const txt = 'Type to start Edit!'
+  const txtWidth = gCtx.measureText(txt).width
+
+  addTextLine(txt, txtWidth, 20, 'Impact',
+    'center', 'red', 'white', getCenterPos(txtWidth))
+
+  renderCanvas()
 }
 
 function render(component) {
+  const elMyMemes = document.querySelector('.main-nav ul a.my-memes-lnk')
+  const elLink = document.querySelector('.main-nav ul a.gallery-lnk')
+
   switch (component) {
     case RENDER_COMPONENTS.GALLERY:
-      const elLink = document.querySelector('.main-nav ul a.gallery-lnk')
       setActiveNavLink(elLink)
       renderGallery()
       break;
@@ -97,12 +111,15 @@ function render(component) {
       renderMeme()
       break;
     case RENDER_COMPONENTS.MY_MEMES:
-      const elMyMemes = document.querySelector('.main-nav ul a.my-memes-lnk')
       setActiveNavLink(elMyMemes)
       renderSavedGallery()
       break;
   }
 
+  displayComponent(component)
+}
+
+function displayComponent(component) {
   // Display and hide relevent component
   document.querySelector('main > section:not(.hide)')
     ?.classList.add('hide')
@@ -135,4 +152,42 @@ function renderSticker(sticker, idx) {
 function onFilterChange(filter) {
   setFilter(filter)
   renderGallery()
+}
+
+function generateMeme() {
+  initialMeme()
+  const rndId = getRandomIntInclusive(1, GALLERY_SIZE)
+  setSelectedImgId(rndId)
+
+  const rndLines = getRandomIntInclusive(1, 3)
+  renderMeme(() => generateLines(rndLines))
+
+  displayComponent(RENDER_COMPONENTS.EDITOR)
+}
+
+function generateLines(linesCount) {
+  const maxWidth = gCanvas.width
+
+  for (let i = 0; i < linesCount; i++) {
+    const rndWords = getRandomIntInclusive(1, 5)
+
+    let lineTxt = makeLorem(rndWords)
+    let lineWidth = gCtx.measureText(lineTxt).width
+
+    const pos = {
+      x: getRandomIntInclusive(10, maxWidth),
+      y: getRandomIntInclusive(10, gCanvas.height)
+    }
+
+    if (lineWidth > maxWidth - pos.x) {
+      lineTxt = lineTxt.slice(0, maxWidth)
+      lineWidth = gCtx.measureText(lineTxt).width
+    }
+
+    const rndFontSize = getRandomIntInclusive(16, 20)
+    addTextLine(lineTxt, lineWidth, rndFontSize, 'Impact',
+      'center', getRandomColor(), getRandomColor(), pos)
+  }
+
+  renderCanvas()
 }

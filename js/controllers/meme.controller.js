@@ -19,19 +19,22 @@ function initCanvas() {
   gCtx = gCanvas.getContext('2d')
 }
 
-function renderMeme() {
+function renderMeme(onInitMeme) {
   const { selectedImgId } = getMeme()
   const { url } = getImgById(selectedImgId)
   const img = new Image(200, 200)
-  img.onload = drawImageActualSize
+  img.onload = () => {
+    drawImageActualSize(img)
+    onInitMeme()
+  }
   img.src = url
   gCanvasBgImg = img
 }
 
-function drawImageActualSize() {
-  gCanvas.width = this.naturalWidth
-  gCanvas.height = this.naturalHeight
-  gCtx.drawImage(this, 0, 0, gCanvas.width, gCanvas.height)
+function drawImageActualSize(img) {
+  gCanvas.width = img.naturalWidth
+  gCanvas.height = img.naturalHeight
+  gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
   renderCanvas()
 }
 
@@ -166,7 +169,7 @@ function onAddText() {
   const txt = 'New Text'
   const txtWidth = gCtx.measureText(txt).width
   addTextLine(txt, txtWidth, 16, 'Impact',
-    'center', 'black', 'black', getCenterPos(txtWidth))
+    'center', getRandomColor(), getRandomColor(), getCenterPos(txtWidth))
   renderCanvas()
 }
 

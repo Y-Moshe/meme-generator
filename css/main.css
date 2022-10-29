@@ -121,7 +121,12 @@ body {
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
   color: #fefefe;
-  background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+  background: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+  transition: transform .3s;
+}
+
+.gallery-container .filters button:hover {
+  transform: scale(1.1);
 }
 
 /* GALLERY */

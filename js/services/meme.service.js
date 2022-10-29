@@ -10,31 +10,12 @@ let gKeywordSearchCountMap
 const initialMemeState = {
   id: makeId(),
   lastSelectedItem: 'LINE', // or STICKER
-  selectedImgId: 5,
+  selectedImgId: 0,
   selectedStickerIdx: 0,
   selectedLineIdx: 0,
   isDrag: false,
-  lines: [
-    {
-      txt: 'Type to Edit',
-      fontSize: 20,
-      fontFamily: 'Impact',
-      textAlign: 'left',
-      stroke: 'black',
-      color: 'red',
-      pos: { x: 100, y: 50 },
-      txtWidth: 300
-    }
-  ],
-  stickers: [
-    {
-      sticker: '😜',
-      pos: { x: 100, y: 50 },
-      radius: 10,
-      fontSize: 10,
-      fontFamily: 'Impact'
-    }
-  ]
+  lines: [],
+  stickers: []
 }
 let gSavedMemes = []
 let gMeme = initialMemeState
