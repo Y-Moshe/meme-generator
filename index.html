@@ -32,7 +32,8 @@
     <!-- Gallery -->
     <section class="gallery-container hide">
       <div class="filters">
-        <input type="text" class="search-input" placeholder="Search" oninput="onFilterChange(this.value)">
+        <datalist id="meme-list"></datalist>
+        <input type="text" class="search-input" placeholder="Search" oninput="onFilterChange(this.value)" list="meme-list">
         <div class="keywords"></div>
         <button onclick="generateMeme()">I'm flexible</button>
       </div>

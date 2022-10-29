@@ -11,6 +11,7 @@ function onInit() {
   initKeywords()
   renderKeywordsList()
   renderStickers()
+  renderDataList()
   initCanvas()
   render(RENDER_COMPONENTS.GALLERY)
 }
@@ -24,6 +25,14 @@ function initImgs() {
     createImg(idx + 1, `assets/img/${idx + 1}.jpg`, getRandomMemeWords()))
 
   setImgs(imgs)
+}
+
+function renderDataList() {
+  const keywords = MEME_KEYWORDS
+    .map(key => `<option value="${key}" />`)
+  
+  document.getElementById('meme-list')
+    .innerHTML = keywords.join('')
 }
 
 function renderKeywordsList() {
