@@ -28,6 +28,7 @@ function renderMeme(onInitMeme = null) {
     drawImageActualSize(img)
     onInitMeme && onInitMeme()
     setTextbox()
+    setLineMark(true, true)
   }
   img.src = url
   gCanvasBgImg = img
