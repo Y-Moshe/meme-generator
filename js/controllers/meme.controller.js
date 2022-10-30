@@ -319,6 +319,7 @@ function onSave(event) {
   addImg(id, url, previewUrl)
   setSelectedImgId(id)
   saveMeme()
+  alert('Meme Saved!')
 }
 
 function onDownload(elDownload) {

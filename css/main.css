@@ -232,6 +232,7 @@ body.menu-open .main-nav ul {
   display: flex;
   color: white;
   font-size: 3rem;
+  padding: 20px;
 }
 
 .gallery .user-img-select:hover {
