@@ -94,6 +94,10 @@ body.menu-open .main-nav ul {
   transform: scaleX(-1);
 }
 
+body.rtl .main-nav .logo-img {
+  transform: none;
+}
+
 .main-nav ul .link {
   color: #fefefe;
   font-size: 1.25em;
