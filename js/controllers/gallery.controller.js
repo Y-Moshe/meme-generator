@@ -194,7 +194,7 @@ function renderStickers() {
 }
 
 function renderSticker(sticker, idx) {
-  return `<span class="face" draggable="true"
+  return `<span class="face" draggable="true" onclick="onStickerClick('${sticker}')"
     ondragstart="onStickerDragStart(${idx})">${sticker}</span>`
 }
 

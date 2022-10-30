@@ -158,13 +158,21 @@ function onMouseUp(event) {
   setUserCursor('unset')
 }
 
+function onStickerClick(sticker) {
+  gCtx.font = `32px Impact`
+  const lineWidth = gCtx.measureText(sticker).width
+  const radius = lineWidth / 2
+  addSticker(sticker, getCenterPos(lineWidth), radius)
+  renderCanvas()
+}
+
 function onStickerDrop(event) {
   event.preventDefault()
 
   const { x, y } = getEventPos(event)
   const sticker = getStickerCharByIdx(getSelectedStickerIdx())
   const radius = gCtx.measureText(sticker).width / 2
-  addSticker(sticker, { x, y, }, radius)
+  addSticker(sticker, { x, y }, radius)
   renderCanvas()
 }
 
