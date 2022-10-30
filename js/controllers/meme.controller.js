@@ -27,6 +27,7 @@ function renderMeme(onInitMeme = null) {
   img.onload = () => {
     drawImageActualSize(img)
     onInitMeme && onInitMeme()
+    setTextbox()
   }
   img.src = url
   gCanvasBgImg = img
@@ -91,7 +92,7 @@ function onMouseDown(event) {
     setSelectedLineIdx(lineIdx)
     setLineMark(true, true)
     setTextAlignment('dragged')
-    loadLineTxt()
+    setTextbox()
   }
 
   const stickerIdx = getStickerIdxByCoords(x, y)
@@ -107,7 +108,7 @@ function onMouseDown(event) {
   gLastPos = { x, y }
 }
 
-function loadLineTxt() {
+function setTextbox() {
   const elTxt = document.querySelector('.editor-textbox')
   const { txt } = getSelectedLine()
   elTxt.value = txt
