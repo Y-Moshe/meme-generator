@@ -183,10 +183,13 @@ function onTextChange(txt) {
 }
 
 function onAddText() {
+  gCtx.font = '20px Impact'
   const txt = 'New Text'
   const txtWidth = gCtx.measureText(txt).width
-  addTextLine(txt, txtWidth, 16, 'Impact',
-    'center', getRandomColor(), getRandomColor(), getCenterPos(txtWidth))
+
+  addTextLine(txt, txtWidth, 20, 'Impact', 'center',
+    getRandomColor(), getRandomColor(), getCenterPos(txtWidth))
+
   renderCanvas()
 }
 

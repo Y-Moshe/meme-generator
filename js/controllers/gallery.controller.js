@@ -137,9 +137,10 @@ function onImgSelect(id, memeId) {
 }
 
 function generateStartTxt() {
+  gCtx.font = '20px Impact'
   const txt = 'Type to start Edit!'
   const txtWidth = gCtx.measureText(txt).width
-
+  
   addTextLine(txt, txtWidth, 20, 'Impact',
     'center', 'red', 'white', getCenterPos(txtWidth))
 
@@ -218,6 +219,9 @@ function generateLines(linesCount) {
 
   for (let i = 0; i < linesCount; i++) {
     const rndWords = getRandomIntInclusive(1, 5)
+    const rndFontSize = getRandomIntInclusive(16, 20)
+    const fontFamily = 'Impact'
+    gCtx.font = `${rndFontSize}px ${fontFamily}`
 
     let lineTxt = makeLorem(rndWords)
     let lineWidth = gCtx.measureText(lineTxt).width
@@ -232,8 +236,7 @@ function generateLines(linesCount) {
       lineWidth = gCtx.measureText(lineTxt).width
     }
 
-    const rndFontSize = getRandomIntInclusive(16, 20)
-    addTextLine(lineTxt, lineWidth, rndFontSize, 'Impact',
+    addTextLine(lineTxt, lineWidth, rndFontSize, fontFamily,
       'center', getRandomColor(), getRandomColor(), pos)
   }
 
