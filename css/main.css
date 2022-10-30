@@ -31,7 +31,6 @@ body {
   justify-content: space-between;
   align-items: center;
   margin: auto;
-  padding: 15px;
 }
 
 .main-nav ul {
@@ -81,13 +80,15 @@ body {
 
 .gallery-container .filters {
   display: grid;
-  grid-template-columns: 3fr 4fr 1fr;
+  grid-template-columns: 5fr 5fr max-content;
   margin-bottom: 40px;
   align-items: center;
   gap: 20px;
 }
 
 .gallery-container .filters .search-input {
+  grid-row: 1;
+  grid-column: 1 / span 4;
   font-size: 1.31rem;
   padding: 15px 50px;
   border-radius: 29px;
@@ -101,6 +102,8 @@ body {
 }
 
 .gallery-container .filters .keywords {
+  grid-row: 2;
+  grid-column: 1 / span 4;
   padding: 10px 30px;
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
   border-radius: 25px;
@@ -116,7 +119,9 @@ body {
 }
 
 .gallery-container .filters button {
-  max-width: max-content;
+  grid-row: 3;
+  grid-column: 1 / span 4;
+  width: 100%;
   font-size: 18px;
   font-weight: 300;
   padding: 10px 15px;
@@ -129,6 +134,32 @@ body {
 
 .gallery-container .filters button:hover {
   transform: scale(1.1);
+}
+
+@media (min-width: 680px) {
+  .gallery-container .filters .search-input {
+    grid-column: 1 / span 2;
+  }
+
+  .gallery-container .filters button {
+    grid-row: 1;
+    grid-column: 3;
+  }
+}
+
+@media (min-width: 940px) {
+  .gallery-container .filters .search-input {
+    grid-column: 1;
+  }
+
+  .gallery-container .filters .keywords {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .gallery-container .filters button {
+    grid-column: 3;
+  }
 }
 
 /* GALLERY */
@@ -192,10 +223,11 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: 40px;
+  gap: 20px;
 }
 
 .meme-generator .meme-editor-container {
-  width: 100%;
+  grid-column: 1 / span 2;
   display: flex;
 }
 
@@ -208,11 +240,22 @@ body {
 /* TEXT-ACTIONS */
 
 .meme-actions {
+  grid-column: 1 / span 2;
   display: flex;
   flex-direction: column;
   border-radius: 30px;
   background: rgba(255, 255, 255, 0.11);
   padding: 25px 40px;
+}
+
+@media (min-width: 1100px) {
+  .meme-editor-container {
+    grid-column: 1 !important;
+  }
+
+  .meme-actions {
+    grid-column: 2;
+  }
 }
 
 .meme-actions .back-lnk {
@@ -363,7 +406,7 @@ body {
 }
 
 .meme-actions .meme-share a {
-  padding: 15px 35px;
+  padding: 10px 20px;
   font-size: 1.25rem;
   color: white;
   border-radius: 15px;
