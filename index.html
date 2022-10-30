@@ -17,10 +17,12 @@
 <body class="main-layout" onload="onInit()">
 
   <!-- Header & Nav -->
+  <div class="main-screen full" onclick="toggleMenuBtn()"></div>
   <header class="main-header full">
     <nav class="main-layout main-nav">
       <img src="favicon-96.png" alt="logo" class="logo-img">
-      <ul class="clean-list flex">
+      <button type="button" class="menu-btn" onclick="document.body.classList.toggle('menu-open')"><i class="fa-solid fa-bars"></i></button>
+      <ul class="clean-list">
         <a href="#" onclick="onNavigateChange('.gallery-container')" class="link gallery-lnk"><li>Gallery</li></a>
         <a href="#" onclick="onNavigateChange('.my-memes')" class="link my-memes-lnk"><li>My Memes</li></a>
         <a href="https://y-moshe.github.io/portfolio/" target="_blank" class="link about-lnk"><li>About</li></a>

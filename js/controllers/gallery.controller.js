@@ -186,6 +186,10 @@ function setActiveNavLink(elActiveLink) {
   elActiveLink?.classList.add('active-link')
 }
 
+function toggleMenuBtn() {
+  document.body.classList.toggle('menu-open')
+}
+
 function renderStickers() {
   const faces = getStickersChars().map(renderSticker)
 
