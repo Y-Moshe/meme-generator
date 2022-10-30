@@ -90,6 +90,7 @@ function onMouseDown(event) {
   const lineIdx = getLineIdxByCoords(x, y)
   if (lineIdx >= 0) {
     setSelectedLineIdx(lineIdx)
+    renderCanvas()
     setLineMark(true, true)
     setTextAlignment('dragged')
     setTextbox()
@@ -126,6 +127,7 @@ function setLineMark(isMark, isAllLine = false) {
     x = margin
   }
 
+  gCtx.lineWidth = 3
   gCtx.lineJoin = 'round'
   gCtx.fillStyle = 'rgba(255, 255, 255, 0.25)'
   gCtx.fillRect(x, y, txtWidth, txtHeight)
