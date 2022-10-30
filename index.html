@@ -23,21 +23,29 @@
       <img src="favicon-96.png" alt="logo" class="logo-img">
       <button type="button" class="menu-btn" onclick="document.body.classList.toggle('menu-open')"><i class="fa-solid fa-bars"></i></button>
       <ul class="clean-list">
-        <a href="#" onclick="onNavigateChange('.gallery-container')" class="link gallery-lnk"><li>Gallery</li></a>
-        <a href="#" onclick="onNavigateChange('.my-memes')" class="link my-memes-lnk"><li>My Memes</li></a>
-        <a href="https://y-moshe.github.io/portfolio/" target="_blank" class="link about-lnk"><li>About</li></a>
+        <a href="#" onclick="onNavigateChange('.gallery-container')" class="link gallery-lnk"><li data-trans="gallery">Gallery</li></a>
+        <a href="#" onclick="onNavigateChange('.my-memes')" class="link my-memes-lnk"><li data-trans="myMemes">My Memes</li></a>
+        <a href="https://y-moshe.github.io/portfolio/" target="_blank" class="link about-lnk"><li data-trans="about">About</li></a>
       </ul>
     </nav>
   </header>
 
+  <section class="lang">
+    <select class="lang-select" onchange="onLangChange(this.value)">
+      <option value="en">English</option>
+      <option value="he">Hebrew</option>
+    </select>
+  </section>
+
   <main class="main-layout">
+
     <!-- Gallery -->
     <section class="gallery-container hide">
       <div class="filters">
         <datalist id="meme-list"></datalist>
         <input type="text" class="search-input" placeholder="Search" oninput="onFilterChange(this.value)" list="meme-list">
         <div class="keywords"></div>
-        <button onclick="generateMeme()">I'm flexible</button>
+        <button onclick="generateMeme()" data-trans="imFlexible">I'm flexible</button>
       </div>
       <input class="user-img" type="file" accept="image/*" onchange="loadUserImg(event)" hidden>
       <div class="gallery"></div>
@@ -50,10 +58,10 @@
       </div>
 
       <aside class="meme-actions">
-        <a href="#" class="back-lnk" onclick="onNavigateChange('.gallery-container')"><i class="fa-solid fa-arrow-left"></i> Back to Gallery</a>
+        <a href="#" class="back-lnk" onclick="onNavigateChange('.gallery-container')"><i class="fa-solid fa-arrow-left"></i> <span data-trans="backToGallery">Back to Gallery</span></a>
 
         <div class="input-group">
-          <input type="text" class="editor-textbox w-100" oninput="onTextChange(this.value)">
+          <input type="text" class="editor-textbox w-100" oninput="onTextChange(this.value)" data-trans="typeToStartEdit">
           <div class="flex align-center justify-content-center text-actions">
             <button type="button" class="switch-text-btn" onclick="onNextText()"><i class="fa-solid fa-text-height"></i></button>
             <button type="button" class="add-text-btn" onclick="onAddText()"><i class="fa-solid fa-plus"></i></button>
@@ -77,9 +85,9 @@
 
         <div class="meme-faces"></div>
         <div class="meme-share flex space-between">
-          <a class="share-link" href="#" onclick="onShare(event)" target="_blank"><i class="fa-solid fa-share-nodes"></i> Share</a>
-          <a class="save-link" href="#" onclick="onSave(event)" target="_blank"><i class="fa-solid fa-floppy-disk"></i> Save</a>
-          <a class="download-link" href="#" onclick="onDownload(this)"><i class="fa-solid fa-download"></i> Download</a>
+          <a class="share-link" href="#" onclick="onShare(event)" target="_blank"><i class="fa-solid fa-share-nodes"></i> <span data-trans="share">Share</span></a>
+          <a class="save-link" href="#" onclick="onSave(event)" target="_blank"><i class="fa-solid fa-floppy-disk"></i> <span data-trans="save">Save</span></a>
+          <a class="download-link" href="#" onclick="onDownload(this)"><i class="fa-solid fa-download"></i> <span data-trans="download">Download</span></a>
         </div>
       </aside>
     </section>
@@ -93,6 +101,7 @@
   <script src="js/services/storage.service.js"></script>
   <script src="js/services/image.service.js"></script>
   <script src="js/services/meme.service.js"></script>
+  <script src="js/services/i18n.service.js"></script>
 
   <!-- Controllers -->
   <script src="js/controllers/meme.controller.js"></script>

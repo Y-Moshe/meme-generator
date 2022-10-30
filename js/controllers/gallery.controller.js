@@ -37,7 +37,7 @@ function initImgs() {
 
 function renderDataList() {
   const keywords = MEME_KEYWORDS
-    .map(key => `<option value="${key}" />`)
+    .map(key => `<option value="${getTrans(key)}" />`)
   
   document.getElementById('meme-list')
     .innerHTML = keywords.join('')
@@ -54,13 +54,14 @@ function renderFontOptions() {
 function renderKeywordsList() {
   const keywords = MEME_KEYWORDS.map(renderKeywordItem)
 
-  document.querySelector('.filters .keywords')
-    .innerHTML = keywords.join(' ')
+  const elKeywords = document.querySelector('.filters .keywords')
+  elKeywords.innerHTML = keywords.join(' ')
+  doTrans(elKeywords)
 }
 
 function renderKeywordItem(word) {
   return `<span class="word" style="font-size: ${getKeywordVal(word)}px"
-    onclick="onKeywordClick('${word}')">${word}</span>`
+    onclick="onKeywordClick('${word}')" data-trans="${word}">${word}</span>`
 }
 
 function onKeywordClick(word) {
@@ -245,4 +246,11 @@ function generateLines(linesCount) {
   }
 
   renderCanvas()
+}
+
+function onLangChange(lang) {
+  setLang(lang)
+  doTrans()
+  renderDataList()
+  gCanvas.dir = lang === 'en' ? 'ltr' : 'rtl'
 }
