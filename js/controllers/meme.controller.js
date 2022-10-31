@@ -322,7 +322,7 @@ function onSave(event) {
   addImg(id, url, previewUrl)
   setSelectedImgId(id)
   saveMeme()
-  alert('Meme Saved!')
+  render(RENDER_COMPONENTS.MY_MEMES)
 }
 
 function onDownload(elDownload) {
