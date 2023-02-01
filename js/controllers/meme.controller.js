@@ -313,7 +313,7 @@ function onShare(event) {
 
 function onSave(event) {
   event.preventDefault()
-  const previewUrl = gCanvas.toDataURL()
+  const previewUrl = gCanvas.toDataURL('image/jpeg', 0.8)
 
   const { selectedImgId } = getMeme()
   const { url } = getImgById(selectedImgId)
