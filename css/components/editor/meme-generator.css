@@ -1,0 +1,20 @@
+.meme-generator {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 40px;
+  gap: 20px;
+}
+
+.meme-generator .meme-editor-container {
+  grid-column: 1 / span 2;
+  display: flex;
+  background: url(../../../assets/bg/editor-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.meme-generator .meme-editor-container .meme-editor {
+  margin: auto;
+  border-radius: 15px;
+  outline: 3px solid rgba(255, 255, 255, 0.4);
+}

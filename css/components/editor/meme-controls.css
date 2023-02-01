@@ -1,0 +1,52 @@
+.meme-controls {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(50px, 50px));
+  justify-content: center;
+  gap: 20px;
+
+  border-radius: 15px;
+  background-color: #19a59f;
+  padding: 20px;
+  font-size: 2em;
+}
+
+.meme-controls button {
+  grid-row: 1;
+  box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55),
+    inset 0 5px 0 rgba(255, 255, 255, 0.58);
+  background-color: #ffffff;
+  font-size: inherit;
+  max-width: 55px;
+  margin: auto;
+  transition: 0.3s;
+}
+
+.meme-controls .font-select {
+  grid-column: 1 / span 3;
+  box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55),
+    inset 0 5px 0 rgba(255, 255, 255, 0.58);
+  border-radius: 10px;
+  font-size: inherit;
+  background-color: #ffffff;
+  padding-inline: 35px 20px;
+  transition: 0.3s;
+}
+
+.meme-controls .font-select:focus {
+  outline: none;
+}
+
+.meme-controls .colors-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  position: relative;
+}
+
+/* HIDDEN COLOR INPUT */
+.meme-controls .color-picker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}

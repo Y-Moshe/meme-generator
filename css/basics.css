@@ -9,6 +9,8 @@ html {
 
 body {
   margin: 0;
+  background-color: #22252c;
+  padding: 15px;
 }
 
 a {
