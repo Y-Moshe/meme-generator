@@ -112,8 +112,13 @@ function renderSavedGallery() {
   const gallery = getSavedImgs().map(({ memeId, img }) =>
     renderSavedGalleryItem(memeId, img))
 
-  document.querySelector('.my-memes')
-    .innerHTML = gallery.join('')
+  const elMemes = document.querySelector('.my-memes')
+  if (!gallery.length) {
+    elMemes.innerHTML = `<h1 class="text-white">No meme saved yet.</h1>`
+    return
+  }
+
+  elMemes.innerHTML = gallery.join('')
 }
 
 function renderSavedGalleryItem(memeId, { id, previewUrl }) {
